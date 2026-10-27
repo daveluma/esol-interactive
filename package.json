@@ -1,0 +1,24 @@
+{
+  "name": "esol-beginner-2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ESOL Beginner 2 — weekly interactive activities for an adult ESOL class",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel serve src/index.html --port 1234 --open",
+    "build": "parcel build src/index.html --public-url ./ --no-source-maps",
+    "preview": "npm run build && npx --yes serve@14.2.4 dist",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "parcel": "2.12.0",
+    "parcel-reporter-static-files-copy": "1.5.3"
+  },
+  "staticFiles": {
+    "staticPath": "static"
+  }
+}
