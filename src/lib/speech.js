@@ -22,13 +22,28 @@ if (canSpeak) {
   };
 }
 
-export function speak(text, { rate = 0.85 } = {}) {
-  if (!canSpeak) return;
-  window.speechSynthesis.cancel();
+function utterance(text, rate) {
   const u = new SpeechSynthesisUtterance(text);
   const voice = pickVoice();
   if (voice) u.voice = voice;
   u.lang = 'en-US';
   u.rate = rate;
-  window.speechSynthesis.speak(u);
+  return u;
+}
+
+export function speak(text, { rate = 0.85 } = {}) {
+  if (!canSpeak) return;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance(text, rate));
+}
+
+// Reads several lines one after another (the browser queues them).
+export function speakAll(texts, { rate = 0.85 } = {}) {
+  if (!canSpeak) return;
+  window.speechSynthesis.cancel();
+  texts.forEach((t) => window.speechSynthesis.speak(utterance(t, rate)));
+}
+
+export function stopSpeaking() {
+  if (canSpeak) window.speechSynthesis.cancel();
 }

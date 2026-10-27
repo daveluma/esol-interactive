@@ -68,8 +68,8 @@ export const FURNITURE = {
           <>
             <rect x="103" y="50" width="114" height="140" fill={INSIDE} />
             <rect x="103" y="118" width="114" height="5" fill={WOOD_DARK} />
-            <rect x="70" y="44" width="25" height="150" fill={WOOD} transform="skewY(-8) translate(0 14)" />
-            <rect x="225" y="44" width="25" height="150" fill={WOOD} transform="skewY(8) translate(0 -36)" />
+            <path d="M95 44 L70 54 L70 196 L95 200 Z" fill={WOOD} />
+            <path d="M225 44 L250 54 L250 196 L225 200 Z" fill={WOOD} />
           </>
         ) : (
           <>

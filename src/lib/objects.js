@@ -10,6 +10,7 @@ export const OBJECTS = {
   laptop: { one: 'laptop', many: 'laptops', emoji: '💻' },
   clock: { one: 'clock', many: 'clocks', emoji: '🕒' },
   globe: { one: 'globe', many: 'globes', emoji: '🌎' },
+  map: { one: 'map', many: 'maps', emoji: '🗺️' },
   scissors: { one: 'scissors', many: 'scissors', emoji: '✂️', alwaysPlural: true },
   paperclip: { one: 'paper clip', many: 'paper clips', emoji: '📎' },
   marker: { one: 'marker', many: 'markers', emoji: '🖍️' },

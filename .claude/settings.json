@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm ci *)",
+      "Read(//c/Users/David/**)",
+      "Bash(cd \"C:/Users/David/Documents/scripts/esol-interactive\" && cat \"C:/Users/David/AppData/Local/Temp/claude/c--Users-David-Documents-scripts-esol-interactive/7ce3ba77-b387-431b-8217-95003aa7ebdc/tasks/bv8l24sy5.output\"; ls \"C:/Users/David/Downloads\" \"C:/Users/David/Documents\" \"C:/Users/David/Desktop\" 2>/dev/null | grep -i -E \"ppt|pdf|esol|unit\" )",
+      "Read(//c/Users/David/Downloads/**)"
+    ]
+  }
+}

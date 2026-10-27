@@ -1,7 +1,25 @@
 # ESOL Beginner 2 — Build Progress & Handoff
 
-Last updated: 2026-10-27. The app is **partly built and does not compile yet** (missing files listed below).
-To continue in a new Claude Code session: "Read docs/PROGRESS.md and docs/Adult_ESOL_Unit2_EF_LLM_Brief.md, then continue building."
+Last updated: 2026-10-27 (evening). **The app builds and the 10/28 week is complete.** All of the original to-do list is done
+and was checked in headless Chrome (every activity type, Games tab, Good News, phone width; no console errors).
+To continue in a new Claude Code session: "Read docs/PROGRESS.md and README.md, then continue."
+
+## Open items / next steps
+
+- **Slides for 10/28 are not in the repo.** `Temp PPT.pptx` is on the user's machine. Copy it (and ideally a PDF export)
+  to `static/powerpoints/2026-10-28/` and list it in `powerpoint.files` in `src/weeks/2026-10-28.js`. The site is
+  public, so the user decides whether to publish publisher slides.
+- **Weeks 11/4, 11/11, 11/18** have the verse, key words and GIFs only (`activities: []`, tab says "Coming soon").
+  Add activities when the user shares those slides. Verse translations (ES/PT/FR/FA) for those weeks are still needed — ask the user.
+- **"CPA ESL games"**: still need to ask the user what this means. The Games tab has 5 built-in games plus links to
+  USA Learns, British Council LearnEnglish, Games to Learn English, ESL Games Plus and ManyThings.
+- **GitHub Pages**: the workflow is at `.github/workflows/deploy.yml`; the user must set Settings → Pages → Source = GitHub Actions and push.
+- GIFs are made by `scripts/make-gifs.mjs` (Node: resvg + gifenc, installed with `--no-save`). Pillow/pip could not
+  install on this machine (SSL certificate error), which is why the GIF script is Node instead of Python.
+
+---
+
+*Everything below is the original build log, kept for reference.*
 
 ## The request (from the user)
 

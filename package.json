@@ -8,7 +8,7 @@
     "start": "parcel serve src/index.html --port 1234 --open",
     "build": "parcel build src/index.html --public-url ./ --no-source-maps",
     "preview": "npm run build && npx --yes serve@14.2.4 dist",
-    "clean": "rm -rf dist .parcel-cache"
+    "clean": "node -e \"for (const d of ['dist', '.parcel-cache']) require('fs').rmSync(d, { recursive: true, force: true })\""
   },
   "dependencies": {
     "react": "18.3.1",
@@ -16,7 +16,8 @@
   },
   "devDependencies": {
     "parcel": "2.12.0",
-    "parcel-reporter-static-files-copy": "1.5.3"
+    "parcel-reporter-static-files-copy": "1.5.3",
+    "process": "^0.11.10"
   },
   "staticFiles": {
     "staticPath": "static"

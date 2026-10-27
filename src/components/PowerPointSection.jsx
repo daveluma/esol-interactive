@@ -7,9 +7,10 @@ function fileUrl(folder, file) {
 }
 
 function SlideFile({ folder, file, label }) {
-  const [show, setShow] = useState(false);
-  const url = fileUrl(folder, file);
   const isPdf = /\.pdf$/i.test(file);
+  // PDFs open right away; a .pptx waits for a click (the online viewer is slower).
+  const [show, setShow] = useState(isPdf);
+  const url = fileUrl(folder, file);
   const absolute = new URL(url, window.location.href).href;
   // Microsoft's free viewer can show a .pptx, but only from a public URL (works on GitHub Pages, not localhost).
   const officeViewer = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(absolute)}`;
@@ -30,7 +31,7 @@ function SlideFile({ folder, file, label }) {
           </a>
           {isPdf && (
             <a className="btn btn-small btn-ghost" href={url} target="_blank" rel="noreferrer">
-              Open full screen
+              Open in new tab
             </a>
           )}
         </div>
@@ -45,7 +46,8 @@ function SlideFile({ folder, file, label }) {
 
 export default function PowerPointSection({ weekId, powerpoint }) {
   const folder = `powerpoints/${weekId}`;
-  const files = powerpoint?.files ?? [];
+  // A file can be listed as 'slides.pdf' or as { file: 'slides.pdf', label: 'Wednesday slides' }.
+  const files = (powerpoint?.files ?? []).map((f) => (typeof f === 'string' ? { file: f } : f));
 
   if (!files.length) {
     return (
@@ -53,7 +55,7 @@ export default function PowerPointSection({ weekId, powerpoint }) {
         <p>No slides yet for this week.</p>
         <p className="hint">
           Put the file in <code>static/{folder}/</code> and add its name to <code>files</code> in{' '}
-          <code>src/weeks/{weekId}.js</code>.
+          <code>src/weeks/{weekId}.js</code>. PDFs are shown right here.
         </p>
       </div>
     );
