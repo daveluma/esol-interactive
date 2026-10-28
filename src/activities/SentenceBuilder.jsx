@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Stepper, Feedback } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import SentencePicture from '../components/SentencePicture';
 
 // Tap the word groups in order to build a sentence (unscramble).
 // items: [{ chunks: ['the books', 'Are', 'the cabinet', 'in', '?'], answer: 'Are the books in the cabinet?' }]
@@ -83,7 +84,10 @@ export default function SentenceBuilder({ items, hint }) {
         onPrev={() => setIndex(index - 1)}
         onNext={() => setIndex(index + 1)}
       />
-      <p className="scrambled">{items[index].chunks.join(' / ')}</p>
+      <div className="picture-prompt">
+        <SentencePicture text={items[index].answer} />
+        <p className="scrambled">{items[index].chunks.join(' / ')}</p>
+      </div>
       <SentenceItem key={index} item={items[index]} />
     </div>
   );

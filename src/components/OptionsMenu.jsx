@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ThemeToggle from './ThemeToggle';
-import ZoomSlider from './ZoomSlider';
+import ZoomButtons from './ZoomButtons';
 
 // "☰ Menu" in the header: week tabs, Games, page zoom and light/dark, tucked away.
 // Picking a week or Games closes it; zoom and theme leave it open. Esc or a tap outside closes it.
@@ -56,7 +56,7 @@ export default function OptionsMenu({ weeks, current, gamesId }) {
           </nav>
           <h2 className="options-heading">View</h2>
           <div className="options-view">
-            <ZoomSlider />
+            <ZoomButtons />
             <ThemeToggle />
           </div>
         </div>

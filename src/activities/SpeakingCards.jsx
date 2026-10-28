@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import SpeakButton from '../components/SpeakButton';
+import { WordPictures } from '../components/SentencePicture';
+import { picturesIn } from '../lib/pictures';
 import { shuffle } from '../lib/objects';
 
 // Speaking station: one prompt card at a time. Ask your partner; your partner answers.
@@ -32,7 +34,15 @@ function Deck({ cards, frames }) {
   return (
     <div className="speaking-deck">
       <div className="speaking-card">
-        {card.emoji && <span className="card-emoji" aria-hidden="true">{card.emoji}</span>}
+        {card.emoji ? (
+          <span className="card-emoji" aria-hidden="true">{card.emoji}</span>
+        ) : (
+          picturesIn(card.prompt).length > 0 && (
+            <span className="card-emoji">
+              <WordPictures text={card.prompt} />
+            </span>
+          )
+        )}
         <p className="card-prompt">{card.prompt}</p>
         <SpeakButton text={card.prompt} />
       </div>

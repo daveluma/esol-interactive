@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Feedback } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import SentencePicture from '../components/SentencePicture';
 
 // Accuracy check: tap a word to make its first letter a CAPITAL, tap the end to add a period.
 // items: ['the books are in the cabinet', ...]  (write them without the capital and period)
@@ -35,20 +36,23 @@ function FixItem({ sentence, number }) {
   return (
     <li className={`fix-item ${status ?? ''}`}>
       <span className="mc-num">{number}.</span>
-      <div className="fix-sentence">
-        {words.map((w, i) => (
-          <button key={i} type="button" className={`fix-word ${caps[i] ? 'capped' : ''}`} onClick={() => toggle(i)}>
-            {caps[i] ? cap(w) : w}
+      <div className="fix-row">
+        <SentencePicture text={sentence} />
+        <div className="fix-sentence">
+          {words.map((w, i) => (
+            <button key={i} type="button" className={`fix-word ${caps[i] ? 'capped' : ''}`} onClick={() => toggle(i)}>
+              {caps[i] ? cap(w) : w}
+            </button>
+          ))}
+          <button
+            type="button"
+            className={`fix-period ${period ? 'on' : ''}`}
+            onClick={() => { setPeriod(!period); setStatus(null); }}
+            aria-label={period ? 'Remove period' : 'Add period'}
+          >
+            {period ? '.' : '◻'}
           </button>
-        ))}
-        <button
-          type="button"
-          className={`fix-period ${period ? 'on' : ''}`}
-          onClick={() => { setPeriod(!period); setStatus(null); }}
-          aria-label={period ? 'Remove period' : 'Add period'}
-        >
-          {period ? '.' : '◻'}
-        </button>
+        </div>
       </div>
       <div className="btn-row">
         <button type="button" className="btn btn-small" onClick={check}>Check</button>

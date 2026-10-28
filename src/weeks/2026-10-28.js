@@ -290,12 +290,12 @@ export default {
       instructions: 'Listen to the teacher read p.157. Choose the answer. Then ask and answer with a partner — use complete sentences.',
       cues: ['listen', 'pointAnswer', 'partner'],
       items: [
-        { question: "What is Juan's last name?", options: ['Perez', 'Cruz'], answer: 'Perez' },
-        { question: 'Where is he from?', options: ['Mexico', 'El Salvador'], answer: 'El Salvador' },
-        { question: 'What is his apartment number?', options: ['1324', '10'], answer: '10' },
-        { question: 'What is his zip code?', options: ['94548', '94321'], answer: '94321' },
-        { question: 'What is his area code?', options: ['213', '555'], answer: '213' },
-        { question: 'What is his telephone number?', options: ['555-6301', '555-0133'], answer: '555-6301' },
+        { question: "What is Juan's last name?", options: ['Perez', 'Cruz'], answer: 'Perez', emoji: '🪪' },
+        { question: 'Where is he from?', options: ['Mexico', 'El Salvador'], answer: 'El Salvador', emoji: '🌎' },
+        { question: 'What is his apartment number?', options: ['1324', '10'], answer: '10', emoji: '🏢' },
+        { question: 'What is his zip code?', options: ['94548', '94321'], answer: '94321', emoji: '📮' },
+        { question: 'What is his area code?', options: ['213', '555'], answer: '213', emoji: '📞' },
+        { question: 'What is his telephone number?', options: ['555-6301', '555-0133'], answer: '555-6301', emoji: '☎️' },
       ],
     },
     {

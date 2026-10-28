@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Score } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import { WordPictures } from '../components/SentencePicture';
 
 // Pronunciation: clap once for each syllable.
 // items: ['map', 'class·room', 'tel·e·phone']  — the dots mark the syllables (the answer).
@@ -20,6 +21,7 @@ function WordCard({ split, onResult }) {
   return (
     <li className={`syllable-card ${status ?? ''}`}>
       <div className="syllable-word">
+        <WordPictures text={word} plurals={false} />
         <strong>{status === 'correct' ? parts.join(' · ') : word}</strong>
         <SpeakButton small text={word} />
       </div>

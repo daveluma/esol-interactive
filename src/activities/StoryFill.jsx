@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Feedback } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import { WordPictures } from '../components/SentencePicture';
 
 // Read a short story and choose the correct word for each blank.
 // story: ['Layla [*is|are] a new student.', '[My|*Her] last name is Azari.', ...]
@@ -30,6 +31,7 @@ export default function StoryFill({ title, story }) {
       <p className="story-text">
         {lines.map((parts, li) => (
           <span key={li} className="story-line">
+            <WordPictures text={parts.map((p) => (typeof p === 'object' ? p.answer : p)).join('')} />
             {parts.map((p, pi) => {
               if (typeof p !== 'object') return <span key={pi}>{p}</span>;
               n += 1;

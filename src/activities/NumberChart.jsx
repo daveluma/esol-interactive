@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Feedback } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import SentencePicture, { WordPictures } from '../components/SentencePicture';
 
 // A chart with number blanks to fill in, plus optional questions with model answers.
 // table: { caption, columns: [...], rows: [['Classroom 1', 3, 2, { answer: 11 }, 6], ...] }
@@ -24,7 +25,10 @@ function ChartTable({ table }) {
         <thead>
           <tr>
             {table.columns.map((c) => (
-              <th key={c}>{c}</th>
+              <th key={c}>
+                <WordPictures text={c} plurals={false} />
+                {c}
+              </th>
             ))}
           </tr>
         </thead>
@@ -33,7 +37,14 @@ function ChartTable({ table }) {
             <tr key={r}>
               {row.map((cell, c) => {
                 const key = `${r}-${c}`;
-                if (!isBlank(cell)) return <td key={c}>{cell}</td>;
+                if (!isBlank(cell)) {
+                  return (
+                    <td key={c}>
+                      {typeof cell === 'string' && <WordPictures text={cell} plurals={false} />}
+                      {cell}
+                    </td>
+                  );
+                }
                 const state = checked ? (cellOk(key, cell) ? 'correct' : 'wrong') : '';
                 return (
                   <td key={c}>
@@ -78,7 +89,8 @@ function QuestionItem({ q, number }) {
   return (
     <li className="qa-item">
       <p>
-        <span className="mc-num">{number}.</span> {q.question} <SpeakButton small text={q.question} />
+        <span className="mc-num">{number}.</span> <WordPictures text={q.question} /> {q.question}{' '}
+        <SpeakButton small text={q.question} />
       </p>
       {shown ? (
         <p className="model-answer">
@@ -100,6 +112,7 @@ export default function NumberChart({ table, context, hint, questions }) {
         <div className="context-box">
           {context.map((s) => (
             <p key={s}>
+              <SentencePicture text={s} />
               {s} <SpeakButton small text={s} />
             </p>
           ))}

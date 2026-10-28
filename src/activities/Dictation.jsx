@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Feedback } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import SentencePicture from '../components/SentencePicture';
 import { speak } from '../lib/speech';
 import { shuffle } from '../lib/objects';
 
@@ -106,6 +107,7 @@ function PartnerMode({ partners }) {
       <ol className="read-list">
         {partners[me].map((s) => (
           <li key={s}>
+            <SentencePicture text={s} />
             {s} <SpeakButton small text={s} />
           </li>
         ))}

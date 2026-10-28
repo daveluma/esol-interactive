@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SpeakButton from '../components/SpeakButton';
+import { WordPictures } from '../components/SentencePicture';
 import { canSpeak, speakAll } from '../lib/speech';
 
 // Role-play: a short conversation. Listen, then hide one part and say it yourself.
@@ -31,6 +32,7 @@ export default function Dialogue({ roles, lines, setting, tryAlso }) {
                 </button>
               ) : (
                 <span className="bubble">
+                  <WordPictures text={text} />
                   {text} <SpeakButton small text={text} />
                 </span>
               )}
@@ -54,7 +56,10 @@ export default function Dialogue({ roles, lines, setting, tryAlso }) {
         <div className="try-also">
           <span className="muted">Practice again with:</span>
           {tryAlso.map((t) => (
-            <span key={t} className="chip">{t}</span>
+            <span key={t} className="chip">
+              <WordPictures text={t} plurals={false} />
+              {t}
+            </span>
           ))}
         </div>
       )}

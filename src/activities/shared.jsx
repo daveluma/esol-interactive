@@ -1,4 +1,5 @@
 import React from 'react';
+import { WordPictures } from '../components/SentencePicture';
 
 // Shows "Item 3 of 8" with previous / next buttons.
 export function Stepper({ index, total, onPrev, onNext, canNext = true }) {
@@ -51,7 +52,10 @@ export function Table({ table }) {
           {table.rows.map((row, i) => (
             <tr key={i}>
               {row.map((cell, j) => (
-                <td key={j}>{cell}</td>
+                <td key={j}>
+                  {typeof cell === 'string' && <WordPictures text={cell} plurals={false} />}
+                  {cell}
+                </td>
               ))}
             </tr>
           ))}

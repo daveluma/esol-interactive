@@ -116,7 +116,7 @@ small {
 /* ---------- Layout ---------- */
 
 .app {
-  zoom: var(--page-zoom, 1); /* page zoom slider (src/components/ZoomSlider.jsx) */
+  zoom: var(--page-zoom, 1); /* page zoom − / + (src/components/ZoomButtons.jsx) */
   max-width: 980px;
   margin: 0 auto;
   padding: 0 16px 48px;
@@ -142,6 +142,8 @@ small {
 .options-menu {
   position: relative;
   margin-left: auto;
+  /* Stay full size at any page zoom, so the − / + buttons are always easy to tap. */
+  zoom: calc(1 / var(--page-zoom, 1));
 }
 
 .options-toggle {
@@ -188,43 +190,22 @@ small {
   gap: 10px;
 }
 
-.options-view .zoom-slider {
-  flex: 1;
-}
-
-.options-view .zoom-slider input[type='range'] {
-  flex: 1;
-  width: auto;
-  min-width: 0;
-}
-
-.zoom-slider {
+.zoom-buttons {
   display: flex;
   align-items: center;
   gap: 6px;
-  min-height: var(--tap);
-  padding: 0 6px 0 10px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
 }
 
-.zoom-slider input[type='range'] {
-  width: 140px;
-  height: 32px;
-  accent-color: var(--accent);
-  cursor: pointer;
-}
-
-.zoom-icon {
-  font-size: 0.8rem;
-  white-space: nowrap;
-  color: var(--muted);
+.zoom-step {
+  min-width: var(--tap);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 6px 14px;
 }
 
 .zoom-value {
-  min-width: 56px;
-  min-height: 40px;
+  min-width: 68px;
+  min-height: var(--tap);
   border: 0;
   border-radius: 8px;
   background: var(--surface-2);
@@ -1176,6 +1157,106 @@ input:focus-visible {
   margin: 0 auto;
   background: var(--surface-2);
   border-radius: 12px;
+}
+
+/* ---------- Pictures for comprehension (src/components/SentencePicture.jsx) ---------- */
+
+.sentence-pic {
+  flex: 0 0 auto;
+}
+
+.word-pics {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 8px;
+  font-size: 1.35em;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.word-pic {
+  display: inline-flex;
+  gap: 1px;
+}
+
+.word-pics .object-img {
+  height: 1.2em;
+}
+
+.sentence-scene {
+  display: inline-block;
+  width: 150px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.sentence-scene .scene {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Where a picture sits next to text, line them up. */
+.mc-question,
+.fix-row,
+.picture-prompt,
+.read-list li,
+.context-box p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fix-row {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.picture-prompt .scrambled {
+  margin: 0;
+}
+
+.picture-prompt {
+  margin-bottom: 10px;
+}
+
+.picture-prompt .sentence-scene {
+  width: 200px;
+}
+
+.option .word-pics,
+.chip .word-pics,
+.data-table .word-pics,
+.syllable-word .word-pics {
+  font-size: 1.15em;
+  margin-right: 6px;
+}
+
+.syllable-word {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.syllable-word .btn-speak {
+  margin-left: auto;
+}
+
+.card-emoji .word-pics {
+  font-size: 1em;
+  margin: 0;
+}
+
+.bubble .word-pics {
+  font-size: 1.25em;
+}
+
+/* Story: one sentence per line, picture first. */
+.story-line {
+  display: block;
+}
+
+.story-text {
+  line-height: 2.2;
 }
 
 /* A photo used in place of an object's emoji (src/components/ObjectPicture.jsx). */

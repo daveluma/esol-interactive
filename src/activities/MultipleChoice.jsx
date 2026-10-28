@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Score, Table } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import SentencePicture, { WordPictures } from '../components/SentencePicture';
 
 // Generic multiple choice. Optional `context` (sentences to read) and `table` (chart to look at).
+// Each question shows a picture of the things it mentions (or the item's own `emoji`).
 // stickyTable: true keeps the chart pinned at the top of the screen while scrolling the questions.
 // items: [{ question: 'Where are the notebooks?', options: [...], answer: 'under the table' }]
 //   or   [{ lines: ['A: Is the map on the wall?', 'B: Yes, ___.'], options: ['it is', 'they are'], answer: 'it is' }]
@@ -28,6 +30,11 @@ function Item({ item, number, onResult }) {
     <li className={`mc-item ${solved ? 'solved' : ''}`}>
       <div className="mc-question">
         <span className="mc-num">{number}.</span>
+        {item.emoji ? (
+          <span className="sentence-pic word-pics" aria-hidden="true">{item.emoji}</span>
+        ) : (
+          <SentencePicture text={lines[0]} />
+        )}
         <div>
           {lines.map((l, i) => (
             <p key={i} className={l.includes('___') ? 'has-blank' : ''}>
@@ -42,6 +49,7 @@ function Item({ item, number, onResult }) {
           const state = tries.includes(opt) ? (opt === item.answer ? 'correct' : 'wrong') : '';
           return (
             <button key={opt} type="button" className={`option ${state}`} onClick={() => choose(opt)} disabled={solved && !state}>
+              <WordPictures text={opt} plurals={false} />
               {opt}
             </button>
           );
@@ -63,6 +71,7 @@ export default function MultipleChoice({ items, context, table, stickyTable = fa
         <div className="context-box">
           {context.map((s) => (
             <p key={s}>
+              <SentencePicture text={s} />
               {s} <SpeakButton small text={s} />
             </p>
           ))}

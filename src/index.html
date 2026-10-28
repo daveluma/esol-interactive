@@ -13,10 +13,10 @@
         try { t = localStorage.getItem('esol-theme'); } catch (e) {}
         if (t !== 'light' && t !== 'dark') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', t);
-        // Page zoom from the slider (percent).
+        // Page zoom from the − / + buttons (percent).
         var z = null;
         try { z = Number(localStorage.getItem('esol-page-zoom')); } catch (e) {}
-        if (z >= 50 && z <= 200) document.documentElement.style.setProperty('--page-zoom', String(z / 100));
+        if (z >= 25 && z <= 200) document.documentElement.style.setProperty('--page-zoom', String(z / 100));
       })();
     </script>
     <link rel="stylesheet" href="./styles.css" />
