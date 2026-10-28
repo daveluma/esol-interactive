@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { useFullscreen } from '../lib/useFullscreen';
 import ThemeToggle from './ThemeToggle';
 
@@ -15,12 +15,24 @@ function savedZoom() {
   }
 }
 
+// The sections/activities at the same level as `el` (Previous / Next move between these).
+function siblingsOf(el) {
+  return [...el.parentElement.children].filter((c) => c.classList.contains('collapsible'));
+}
+
+const titleOf = (el) => el?.querySelector(':scope > .collapsible-bar .collapsible-title')?.textContent.trim();
+
 export default function Collapsible({ title, icon, meta, defaultOpen = false, className = '', children }) {
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   const ref = useRef(null);
-  const { full, overlay, enter, exit } = useFullscreen(ref);
   const [zoom, setZoom] = useState(savedZoom);
+  // Opened full screen from another section: open up and use the current text size.
+  const onOpen = useCallback(() => {
+    setOpen(true);
+    setZoom(savedZoom());
+  }, []);
+  const { full, enter, exit, switchTo } = useFullscreen(ref, onOpen);
 
   const changeZoom = (step) => {
     const next = ZOOMS[Math.min(ZOOMS.length - 1, Math.max(0, ZOOMS.indexOf(zoom) + step))];
@@ -34,9 +46,15 @@ export default function Collapsible({ title, icon, meta, defaultOpen = false, cl
 
   const goFull = (e) => {
     e.stopPropagation();
-    setOpen(true);
+    onOpen();
     enter();
   };
+
+  // Previous / next section at this level, while in full screen.
+  const siblings = full && ref.current ? siblingsOf(ref.current) : [];
+  const pos = siblings.indexOf(ref.current);
+  const prevEl = siblings[pos - 1];
+  const nextEl = siblings[pos + 1];
 
   // In full screen the bar is pinned at the top; share its height (--full-bar-h)
   // so pinned content inside (e.g. a sticky chart) sits just below it.
@@ -52,7 +70,7 @@ export default function Collapsible({ title, icon, meta, defaultOpen = false, cl
   }, [full]);
 
   return (
-    <section ref={ref} className={`collapsible ${open ? 'open' : ''} ${full ? 'is-full' : ''} ${overlay ? 'is-overlay' : ''} ${className}`}>
+    <section ref={ref} className={`collapsible ${open ? 'open' : ''} ${full ? 'is-full' : ''} ${className}`}>
       <div className="collapsible-bar" ref={barRef}>
         <button
           type="button"
@@ -68,6 +86,33 @@ export default function Collapsible({ title, icon, meta, defaultOpen = false, cl
         </button>
         {full ? (
           <div className="full-controls">
+            {siblings.length > 1 && (
+              <div className="full-nav">
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => switchTo(prevEl)}
+                  disabled={!prevEl}
+                  aria-label={prevEl ? `Previous: ${titleOf(prevEl)}` : 'Previous'}
+                  title={prevEl ? titleOf(prevEl) : undefined}
+                >
+                  ◀ Prev
+                </button>
+                <span className="full-pos">
+                  {pos + 1} / {siblings.length}
+                </span>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => switchTo(nextEl)}
+                  disabled={!nextEl}
+                  aria-label={nextEl ? `Next: ${titleOf(nextEl)}` : 'Next'}
+                  title={nextEl ? titleOf(nextEl) : undefined}
+                >
+                  Next ▶
+                </button>
+              </div>
+            )}
             <ThemeToggle />
             <button type="button" className="btn btn-ghost" onClick={() => changeZoom(-1)} disabled={zoom === ZOOMS[0]} aria-label="Smaller text">
               A−

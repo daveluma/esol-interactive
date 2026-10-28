@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 
 // Floating "Picture search" pane: type a word, open Google Images for it in a new tab
 // (Google can't be shown inside the page). SafeSearch is always on.
-// The pane follows a section into full screen so it can be used on the board.
+// It sits above full-screen sections too (z-index in styles.css), so it can be used on the board.
 
 const SEARCH_URL = 'https://www.google.com/search';
 const OPEN_KEY = 'esol-image-search-open';
@@ -29,27 +29,11 @@ function save(key, value) {
   }
 }
 
-// Render into the full-screen element while there is one, else into <body>.
-function usePortalTarget() {
-  const [target, setTarget] = useState(() => document.fullscreenElement ?? document.body);
-  useEffect(() => {
-    const onChange = () => setTarget(document.fullscreenElement ?? document.webkitFullscreenElement ?? document.body);
-    document.addEventListener('fullscreenchange', onChange);
-    document.addEventListener('webkitfullscreenchange', onChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', onChange);
-      document.removeEventListener('webkitfullscreenchange', onChange);
-    };
-  }, []);
-  return target;
-}
-
 export default function ImageSearch() {
   const [open, setOpen] = useState(() => load(OPEN_KEY, false));
   const [query, setQuery] = useState('');
   const [recent, setRecent] = useState(() => load(RECENT_KEY, []));
   const inputRef = useRef(null);
-  const target = usePortalTarget();
 
   const toggle = (next) => {
     setOpen(next);
@@ -126,5 +110,5 @@ export default function ImageSearch() {
     </button>
   );
 
-  return createPortal(pane, target);
+  return createPortal(pane, document.body);
 }

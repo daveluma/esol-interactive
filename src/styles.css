@@ -455,7 +455,11 @@ small {
   display: none;
 }
 
+/* The full-screen section is a layer over the page (the browser itself is full screen). */
 .collapsible.is-full {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
   zoom: calc(1 / var(--page-zoom, 1)); /* full screen uses its own A−/A+ size, not the page zoom */
   margin: 0;
   border: 0;
@@ -466,23 +470,24 @@ small {
   -webkit-overflow-scrolling: touch;
 }
 
-.collapsible.is-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-}
-
 body.has-overlay {
   overflow: hidden;
 }
 
-.collapsible:fullscreen {
-  width: 100vw;
-  height: 100vh;
+.full-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 10px;
+  margin-right: 2px;
+  border-right: 1px solid var(--border);
 }
 
-.collapsible::backdrop {
-  background: var(--bg);
+.full-pos {
+  min-width: 4.5em;
+  text-align: center;
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .is-full > .collapsible-bar {
