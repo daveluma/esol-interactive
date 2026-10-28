@@ -24,6 +24,11 @@ function Deck({ cards, frames }) {
     }
   };
 
+  const previous = () => {
+    setShowModel(false);
+    setIndex(index - 1);
+  };
+
   return (
     <div className="speaking-deck">
       <div className="speaking-card">
@@ -52,6 +57,9 @@ function Deck({ cards, frames }) {
         </div>
       )}
       <div className="btn-row">
+        <button type="button" className="btn btn-ghost" onClick={previous} disabled={index === 0}>
+          ← Previous
+        </button>
         <span className="stepper-count">
           {index + 1} / {order.length}
         </span>
