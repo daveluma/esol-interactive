@@ -1,5 +1,6 @@
-import React, { useId, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { useFullscreen } from '../lib/useFullscreen';
+import ThemeToggle from './ThemeToggle';
 
 // Text size used in full screen, remembered on this device (the board).
 const ZOOMS = [1, 1.2, 1.4, 1.6, 1.8, 2.1, 2.4];
@@ -37,9 +38,22 @@ export default function Collapsible({ title, icon, meta, defaultOpen = false, cl
     enter();
   };
 
+  // In full screen the bar is pinned at the top; share its height (--full-bar-h)
+  // so pinned content inside (e.g. a sticky chart) sits just below it.
+  const barRef = useRef(null);
+  useEffect(() => {
+    if (!full) return undefined;
+    const bar = barRef.current;
+    const update = () => ref.current?.style.setProperty('--full-bar-h', `${bar.offsetHeight}px`);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(bar);
+    return () => ro.disconnect();
+  }, [full]);
+
   return (
     <section ref={ref} className={`collapsible ${open ? 'open' : ''} ${full ? 'is-full' : ''} ${overlay ? 'is-overlay' : ''} ${className}`}>
-      <div className="collapsible-bar">
+      <div className="collapsible-bar" ref={barRef}>
         <button
           type="button"
           className="collapsible-header"
@@ -54,6 +68,7 @@ export default function Collapsible({ title, icon, meta, defaultOpen = false, cl
         </button>
         {full ? (
           <div className="full-controls">
+            <ThemeToggle />
             <button type="button" className="btn btn-ghost" onClick={() => changeZoom(-1)} disabled={zoom === ZOOMS[0]} aria-label="Smaller text">
               A−
             </button>

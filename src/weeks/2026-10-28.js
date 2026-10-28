@@ -159,6 +159,7 @@ export default {
       skill: 'Comprehension check',
       instructions: 'Look at the chart. Choose the answer.',
       cues: ['look', 'read', 'pointAnswer'],
+      stickyTable: true,
       table: {
         caption: 'Classroom supplies',
         columns: ['Item', 'How many?', 'Where?'],

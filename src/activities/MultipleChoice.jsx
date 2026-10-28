@@ -3,6 +3,7 @@ import { Score, Table } from './shared';
 import SpeakButton from '../components/SpeakButton';
 
 // Generic multiple choice. Optional `context` (sentences to read) and `table` (chart to look at).
+// stickyTable: true keeps the chart pinned at the top of the screen while scrolling the questions.
 // items: [{ question: 'Where are the notebooks?', options: [...], answer: 'under the table' }]
 //   or   [{ lines: ['A: Is the map on the wall?', 'B: Yes, ___.'], options: ['it is', 'they are'], answer: 'it is' }]
 // A "___" in a line is filled with the answer once it is correct.
@@ -50,7 +51,7 @@ function Item({ item, number, onResult }) {
   );
 }
 
-export default function MultipleChoice({ items, context, table }) {
+export default function MultipleChoice({ items, context, table, stickyTable = false }) {
   const [results, setResults] = useState({});
   const [round, setRound] = useState(0);
   const firstTry = Object.values(results).filter(Boolean).length;
@@ -67,7 +68,14 @@ export default function MultipleChoice({ items, context, table }) {
           ))}
         </div>
       )}
-      {table && <Table table={table} />}
+      {table &&
+        (stickyTable ? (
+          <div className="sticky-table">
+            <Table table={table} />
+          </div>
+        ) : (
+          <Table table={table} />
+        ))}
       <ol className="mc-list" key={round}>
         {items.map((item, i) => (
           <Item key={i} item={item} number={i + 1} onResult={(ok) => setResults((r) => ({ ...r, [i]: ok }))} />

@@ -11,7 +11,7 @@ function ActivityList({ activities }) {
   return (
     <div className="activity-list">
       {activities.map((a, i) => (
-        <ActivityCard key={`${a.type}-${i}`} activity={a} number={i + 1} defaultOpen={i === 0} />
+        <ActivityCard key={`${a.type}-${i}`} activity={a} number={i + 1} />
       ))}
     </div>
   );
@@ -36,21 +36,21 @@ export default function WeekPage({ week }) {
         )}
       </div>
 
-      <Collapsible className="section section-ppt" icon="📊" title="PowerPoint" defaultOpen={false}>
+      <Collapsible className="section section-ppt" icon="📊" title="PowerPoint">
         <PowerPointSection weekId={week.id} powerpoint={week.powerpoint} />
       </Collapsible>
 
-      <Collapsible className="section section-activities" icon="🎯" title="Interactive Activities" defaultOpen>
+      <Collapsible className="section section-activities" icon="🎯" title="Interactive Activities">
         <ActivityList activities={week.activities} />
       </Collapsible>
 
-      <Collapsible className="section section-practical" icon="🧰" title="Practical English — Work & Life" defaultOpen>
+      <Collapsible className="section section-practical" icon="🧰" title="Practical English — Work & Life">
         {week.practical?.intro && <p className="section-intro">{week.practical.intro}</p>}
         <ActivityList activities={week.practical?.activities} />
       </Collapsible>
 
       {week.goodNews && (
-        <Collapsible className="section section-good-news" icon="✝️" title="THE GOOD NEWS" defaultOpen>
+        <Collapsible className="section section-good-news" icon="✝️" title="THE GOOD NEWS">
           <GoodNews goodNews={week.goodNews} />
         </Collapsible>
       )}

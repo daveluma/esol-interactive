@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { OBJECTS, shuffle } from '../lib/objects';
 import { speak } from '../lib/speech';
+import ObjectPicture from '../components/ObjectPicture';
 
 // Vocabulary memory: find the picture and the word that match.
 
@@ -10,7 +11,7 @@ function newDeck(objectIds) {
   const chosen = shuffle(objectIds).slice(0, PAIRS);
   return shuffle(
     chosen.flatMap((id) => [
-      { key: `${id}-pic`, id, face: OBJECTS[id].emoji, kind: 'pic' },
+      { key: `${id}-pic`, id, face: OBJECTS[id].emoji, image: OBJECTS[id].image, kind: 'pic' },
       { key: `${id}-word`, id, face: OBJECTS[id].one, kind: 'word' },
     ]),
   );
@@ -61,9 +62,9 @@ export default function MemoryMatch({ objectIds = Object.keys(OBJECTS) }) {
               type="button"
               className={`memory-card ${up ? 'up' : ''} ${matched.includes(card.id) ? 'matched' : ''} memory-${card.kind}`}
               onClick={() => flip(i)}
-              aria-label={up ? card.face : 'Hidden card'}
+              aria-label={up ? (card.image ? `Picture of a ${OBJECTS[card.id].one}` : card.face) : 'Hidden card'}
             >
-              {up ? card.face : '?'}
+              {up ? <ObjectPicture emoji={card.face} image={card.image} /> : '?'}
             </button>
           );
         })}

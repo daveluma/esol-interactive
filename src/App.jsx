@@ -3,8 +3,11 @@ import { WEEKS, defaultWeekId } from './weeks';
 import { useHashRoute } from './lib/useHashRoute';
 import WeekPage from './components/WeekPage';
 import GamesPage from './games/GamesPage';
+import OptionsMenu from './components/OptionsMenu';
+import ImageSearch from './components/ImageSearch';
 
 const GAMES_ID = 'games';
+const logoUrl = new URL('./assets/covlife-logo.png', import.meta.url).href;
 
 export default function App() {
   const [route, navigate] = useHashRoute();
@@ -23,33 +26,13 @@ export default function App() {
     <div className="app">
       <header className="site-header">
         <div className="brand">
-          <span className="brand-mark" aria-hidden="true">🍇</span>
+          <span className="brand-mark" aria-hidden="true">🌐︎</span>
           <div>
             <h1>ESOL Beginner 2</h1>
             <p className="brand-sub">Wednesday practice · Do it · Say it · Use it</p>
           </div>
+          <OptionsMenu weeks={WEEKS} current={current} gamesId={GAMES_ID} />
         </div>
-        <nav className="tabs" aria-label="Weeks">
-          {WEEKS.map((w) => (
-            <a
-              key={w.id}
-              href={`#/${w.id}`}
-              className={`tab ${current === w.id ? 'active' : ''}`}
-              aria-current={current === w.id ? 'page' : undefined}
-            >
-              <span className="tab-date">{w.tabLabel}</span>
-              <span className="tab-topic">{w.tabTopic}</span>
-            </a>
-          ))}
-          <a
-            href={`#/${GAMES_ID}`}
-            className={`tab tab-games ${current === GAMES_ID ? 'active' : ''}`}
-            aria-current={current === GAMES_ID ? 'page' : undefined}
-          >
-            <span className="tab-date">Games</span>
-            <span className="tab-topic">Extra practice</span>
-          </a>
-        </nav>
       </header>
 
       <main className="main">
@@ -57,7 +40,13 @@ export default function App() {
         {week && <WeekPage week={week} />}
       </main>
 
-      <footer className="site-footer">ESOL Beginner 2 · Wednesday class · 6:30–8:15 PM</footer>
+      <footer className="site-footer">
+        <span>ESOL Beginner 2 ·</span>
+        <a href="https://www.covlife.org/" target="_blank" rel="noreferrer" className="footer-logo">
+          <img src={logoUrl} alt="Covenant Life Church" />
+        </a>
+      </footer>
+      <ImageSearch />
     </div>
   );
 }

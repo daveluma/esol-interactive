@@ -52,6 +52,7 @@ function SceneQuestion({ item }) {
         furniture={item.furniture}
         place={item.place}
         emoji={noun.emoji}
+        image={noun.image}
         count={noun.plural ? 3 : 1}
         label={full}
       />

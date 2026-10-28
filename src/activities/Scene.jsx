@@ -127,22 +127,39 @@ export const FURNITURE = {
   },
 };
 
-export default function Scene({ furniture, place, emoji, count = 1, label }) {
+// `image` (a photo URL) is drawn instead of the emoji when the object has one.
+export default function Scene({ furniture, place, emoji, image, count = 1, label }) {
   const f = FURNITURE[furniture];
   const [cx, baseline] = f.slots[place];
   const n = Math.min(count, 4);
   const size = n > 2 ? 30 : 36;
-  const xs = Array.from({ length: n }, (_, i) => cx + (i - (n - 1) / 2) * (size * 0.9));
+  // Photos are a bit wider than an emoji (about 6:5), so space them out more.
+  const photoW = size * 1.3;
+  const photoH = photoW / 1.2;
+  const step = image ? photoW + 3 : size * 0.9;
+  const xs = Array.from({ length: n }, (_, i) => cx + (i - (n - 1) / 2) * step);
 
   return (
     <svg className="scene" viewBox="0 0 320 210" role="img" aria-label={label}>
       <rect x="0" y="200" width="320" height="10" fill="var(--floor)" />
       {f.draw(place)}
-      {xs.map((x, i) => (
-        <text key={i} x={x} y={baseline} fontSize={size} textAnchor="middle">
-          {emoji}
-        </text>
-      ))}
+      {xs.map((x, i) =>
+        image ? (
+          <image
+            key={i}
+            href={image}
+            x={x - photoW / 2}
+            y={baseline - photoH + 2}
+            width={photoW}
+            height={photoH}
+            preserveAspectRatio="xMidYMid slice"
+          />
+        ) : (
+          <text key={i} x={x} y={baseline} fontSize={size} textAnchor="middle">
+            {emoji}
+          </text>
+        ),
+      )}
       {f.front?.(place)}
     </svg>
   );

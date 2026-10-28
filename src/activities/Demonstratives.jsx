@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Stepper, Feedback } from './shared';
 import SpeakButton from '../components/SpeakButton';
+import ObjectPicture from '../components/ObjectPicture';
 import { OBJECTS, pick } from '../lib/objects';
 import { article, nounFor } from '../lib/grammar';
 
@@ -58,7 +59,7 @@ function DemoQuestion({ item }) {
   const sentence = `${answer} ${noun.plural ? '' : `${article(noun.name)} `}${noun.name}.`;
 
   const emojis = Array.from({ length: noun.plural ? 3 : 1 }, (_, i) => (
-    <span key={i}>{noun.emoji}</span>
+    <ObjectPicture key={i} emoji={noun.emoji} image={noun.image} />
   ));
 
   return (

@@ -1,5 +1,10 @@
 // Classroom / workplace objects with an emoji picture.
 // Activities look up pictures here so new weeks can reuse them.
+// Add `image` (a photo in src/assets/objects/) to show a picture instead of the emoji.
+
+const img = {
+  holepuncher: new URL('../assets/objects/hole-puncher.jpg', import.meta.url).href,
+};
 
 export const OBJECTS = {
   book: { one: 'book', many: 'books', emoji: '📕' },
@@ -27,7 +32,7 @@ export const OBJECTS = {
   eraser: { one: 'eraser', many: 'erasers', emoji: '🧽' },
   notepad: { one: 'notepad', many: 'notepads', emoji: '🗒️' },
   indexcard: { one: 'index card', many: 'index cards', emoji: '📇' },
-  holepuncher: { one: 'hole puncher', many: 'hole punchers', emoji: '🕳️' },
+  holepuncher: { one: 'hole puncher', many: 'hole punchers', emoji: '🕳️', image: img.holepuncher },
   gloves: { one: 'glove', many: 'gloves', emoji: '🧤' },
   box: { one: 'box', many: 'boxes', emoji: '📦' },
   hammer: { one: 'hammer', many: 'hammers', emoji: '🔨' },

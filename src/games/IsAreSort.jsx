@@ -3,6 +3,7 @@ import { Score } from '../activities/shared';
 import { OBJECTS, pick } from '../lib/objects';
 import { nounFor } from '../lib/grammar';
 import { speak } from '../lib/speech';
+import ObjectPicture from '../components/ObjectPicture';
 
 // Quick sort: is or are? Ten sentences per round.
 
@@ -54,7 +55,9 @@ export default function IsAreSort({ objectIds = Object.keys(OBJECTS) }) {
         {count + 1} / {ROUND} · Score: {score}
       </p>
       <p className="is-are-emoji" aria-hidden="true">
-        {item.noun.plural ? item.noun.emoji.repeat(3) : item.noun.emoji}
+        {Array.from({ length: item.noun.plural ? 3 : 1 }, (_, i) => (
+          <ObjectPicture key={i} emoji={item.noun.emoji} image={item.noun.image} />
+        ))}
       </p>
       <p className="is-are-sentence">
         The {item.noun.name} <span className={`blank ${result ?? ''}`}>{result ? answer : '___'}</span> {item.place}.

@@ -7,7 +7,7 @@ import Demonstratives from '../activities/Demonstratives';
 
 // Extra practice that is not tied to one week. To add a game: make a component and add it to GAMES.
 
-const CLASSROOM = ['book', 'pencil', 'pen', 'ruler', 'notebook', 'laptop', 'clock', 'globe', 'scissors', 'paperclip', 'marker', 'calculator', 'calendar', 'dictionary', 'stapler', 'eraser', 'map'];
+const CLASSROOM = ['book', 'pencil', 'pen', 'ruler', 'notebook', 'laptop', 'clock', 'globe', 'scissors', 'paperclip', 'marker', 'calculator', 'calendar', 'dictionary', 'stapler', 'eraser', 'map', 'holepuncher'];
 const EVERYDAY = ['keys', 'phone', 'bag', 'wallet', 'glasses', 'folder', 'cup', 'gloves', 'box', 'hammer', 'knife', 'broom'];
 
 const GAMES = [
@@ -36,13 +36,13 @@ export default function GamesPage() {
         <p className="week-subtitle">Practice at home or in class. Every game makes new questions each time.</p>
       </div>
 
-      {GAMES.map((g, i) => (
-        <Collapsible key={g.id} className="section" icon={g.icon} title={g.title} defaultOpen={i === 0}>
+      {GAMES.map((g) => (
+        <Collapsible key={g.id} className="section" icon={g.icon} title={g.title}>
           {g.render()}
         </Collapsible>
       ))}
 
-      <Collapsible className="section" icon="🌐" title="More English games online" defaultOpen>
+      <Collapsible className="section" icon="🌐" title="More English games online">
         <ul className="link-list">
           {LINKS.map((l) => (
             <li key={l.href}>
